@@ -4,7 +4,6 @@ abstract class ChatsState extends Equatable {
   const ChatsState();
 }
 
-// Chats
 class InitialChatsState extends ChatsState {
   @override
   List<Object> get props => [];

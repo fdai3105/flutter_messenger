@@ -13,9 +13,16 @@ import 'package:flutter_bloc_chat/utils/shared_pres.dart';
 import 'package:flutter_bloc_chat/widgets/chat_item.dart';
 
 class ChatPage extends StatelessWidget {
+  final String chatID;
+  final bool runFromHome;
+  final String sendTo;
+
+  const ChatPage(
+      {Key key, this.chatID, @required this.runFromHome, @required this.sendTo})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final agrus = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -28,16 +35,21 @@ class ChatPage extends StatelessWidget {
           IconButton(
               icon: const Icon(Icons.info_outline),
               onPressed: () {
-                Navigator.pushNamed(context, Routes.chatInfo,
-                    arguments: agrus);
+                // todo
               })
         ],
       ),
       body: SafeArea(
           child: Column(
         children: <Widget>[
-          _Chats(),
-          _ChatInputField(),
+          _Chats(
+            chatID: chatID,
+            runFromHome: runFromHome,
+          ),
+          _ChatInputField(
+            chatID: chatID,
+            sendTo: sendTo,
+          ),
         ],
       )),
     );
@@ -45,6 +57,11 @@ class ChatPage extends StatelessWidget {
 }
 
 class _Chats extends StatefulWidget {
+  final String chatID;
+  final bool runFromHome;
+
+  const _Chats({Key key, this.chatID, this.runFromHome}) : super(key: key);
+
   @override
   __ChatsState createState() => __ChatsState();
 }
@@ -55,6 +72,7 @@ class __ChatsState extends State<_Chats> {
   @override
   void initState() {
     super.initState();
+    context.bloc<MessagesBloc>().add(FetchMessagesEvent(widget.chatID));
     _controller.addListener(() {
       final maxScroll = _controller.position.maxScrollExtent;
       final currentScroll = _controller.position.pixels;
@@ -92,6 +110,14 @@ class __ChatsState extends State<_Chats> {
 }
 
 class _ChatInputField extends StatelessWidget {
+  final String chatID;
+  final String sendTo;
+
+  var _editingController = TextEditingController();
+
+  _ChatInputField({Key key, @required this.chatID, @required this.sendTo})
+      : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -100,12 +126,13 @@ class _ChatInputField extends StatelessWidget {
         children: [
           IconButton(
               icon: Icon(
-                Icons.emoji_emotions,
+                Icons.insert_emoticon,
                 color: Colors.black.withOpacity(0.8),
               ),
               onPressed: () {}),
           Expanded(
             child: TextField(
+              controller: _editingController,
               decoration: InputDecoration(
                   fillColor: Colors.black,
                   hintText: "Type a message",
@@ -113,14 +140,18 @@ class _ChatInputField extends StatelessWidget {
                     icon: const Icon(Icons.send),
                     color: Colors.black.withOpacity(0.8),
                     onPressed: () {
-                      final message = Message(
-                          text: "af has",
-                          timeStamp: DateTime.now().millisecondsSinceEpoch,
-                          senderName: SharedPres.getUser().name,
-                          senderEmail: SharedPres.getUser().email);
-                      context
-                          .bloc<MessagesBloc>()
-                          .add(SendMessageEvent(null,message));
+                      final _text = _editingController.text;
+                      if (_text.isNotEmpty) {
+                        final message = Message(
+                            text: _text,
+                            timeStamp: DateTime.now().millisecondsSinceEpoch,
+                            senderName: SharedPres.getUser().name,
+                            senderEmail: SharedPres.getUser().email);
+                        context
+                            .bloc<MessagesBloc>()
+                            .add(SendMessageEvent(chatID, message, sendTo));
+                        _editingController.clear();
+                      }
                     },
                   ),
                   focusedBorder: InputBorder.none),

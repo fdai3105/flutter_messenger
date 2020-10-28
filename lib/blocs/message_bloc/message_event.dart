@@ -35,8 +35,9 @@ class ReceiveMessagesEvent extends MessagesEvent {
 class SendMessageEvent extends MessagesEvent {
   final String chatsID;
   final Message message;
+  final String sendTo;
 
-  const SendMessageEvent(this.chatsID,this.message);
+  const SendMessageEvent(this.chatsID,this.message, this.sendTo);
 
   @override
   List<Object> get props => [message];

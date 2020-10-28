@@ -12,4 +12,7 @@ class Fields {
   static const String userFieldName = "name";
   static const String userFieldEmail = "email";
   static const String userFieldAvatar = "avatar";
+
+  static const String contactInfo = "contactInfo"; // primary
+  static const String contactEmail = "email";
 }

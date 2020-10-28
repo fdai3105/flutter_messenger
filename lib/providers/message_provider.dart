@@ -19,27 +19,26 @@ class MessageProvider {
   Stream<List<Message>> getMessages(String chatID) {
     messageStreamControl = StreamController();
     messageStreamControl.sink;
-
     final doc = fireStore.collection(Paths.chatsPath).doc(chatID);
-    final messages = doc.collection(Paths.messagesPath);
+    final messages = doc.collection(Paths.messagesPath).orderBy(Fields.chatFieldsTime,descending: true);
     return messages.snapshots().transform(
         StreamTransformer<QuerySnapshot, List<Message>>.fromHandlers(
             handleData: (snapshot, sink) =>
-                Message.fromQuerySnapShot(snapshot, sink)
-        ));
+                Message.fromQuerySnapShot(snapshot, sink)));
   }
 
-  Future<List<Message>> getPreviousMessages(String chatId,
-      Message prevMessage) {}
+  Future<List<Message>> getPreviousMessages(
+      String chatId, Message prevMessage) {}
 
-  Future<void> sendMessage(String chatId, Message message) async {
+  Future<void> sendMessage(
+      String chatId, Message message, String sendTo) async {
     final chatDocRef = fireStore.collection(Paths.chatsPath).doc(chatId);
     final messagesCollection = chatDocRef.collection(Paths.messagesPath);
     await messagesCollection.add(message.toMap());
     await chatDocRef.set({
-      "belongToChatID": chatId,
       Fields.chatFieldsLastMessage: message.toMap(),
-      "members": [SharedPres.getUser().email, "test"]
+      "members": [message.senderEmail, sendTo]
     });
+    print("${message.senderEmail} + $sendTo");
   }
 }

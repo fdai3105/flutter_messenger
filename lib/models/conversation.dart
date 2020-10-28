@@ -16,23 +16,10 @@ class Conversation {
 
   Conversation({this.chatId, this.latestMessage, this.user, this.members});
 
-  factory Conversation.fromMap(Map data) {
-    List<String> _users = data["members"];
-    _users.forEach((element) {});
-
-    return Conversation(
-        chatId: data[Fields.chatFieldsLastMessage],
-        latestMessage: data[Fields.chatFieldsLastMessage],
-        user: null,
-        members: _users);
-  }
-
   factory Conversation.fromFireStore(DocumentSnapshot doc) {
     final data = doc.data();
     final _members = <String>[];
-
     final selfEmail = SharedPres.getUser().email;
-
     final memberEmails = List<String>.from(data["members"]);
     for (var i = 0; i < memberEmails.length; i++) {
       if (memberEmails[i] != selfEmail) {

@@ -26,17 +26,20 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       yield MessagesProgress();
       yield MessagesSuccess(event.messages);
     } else if (event is SendMessageEvent) {
-      yield* _mapSendMessageEventToState(event.message);
+      yield* _mapSendMessageEventToState(event.message, event.sendTo);
     }
   }
 
   Stream<MessagesState> _mapFetchMessagesEventToState(String chatID) async* {
-    messageRepository.getMessages(chatID).listen((event) {
-      add(ReceiveMessagesEvent(event));
-    });
+    if(chatID != null) {
+      messageRepository.getMessages(chatID).listen((event) {
+        add(ReceiveMessagesEvent(event));
+      });
+    }
   }
 
-  Stream<MessagesState> _mapSendMessageEventToState(Message message) async* {
-    await messageRepository.sendMessage(chatID, message);
+  Stream<MessagesState> _mapSendMessageEventToState(
+      Message message, String sendTo) async* {
+    await messageRepository.sendMessage(chatID, message, sendTo);
   }
 }

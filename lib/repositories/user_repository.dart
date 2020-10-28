@@ -1,13 +1,23 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as FirebaseUser;
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/providers/user_provider.dart';
+import '../models/user.dart';
+import '../providers/user_provider.dart';
 
-class UserRepository {
+class UserRepository implements UserProvider {
   final UserProvider _userProvider = UserProvider();
 
-  void saveUserToFirestore(FirebaseUser.User user) =>
-      _userProvider.saveUserToFirestore(user);
+  @override
+  FirebaseFirestore get fireStore => throw UnimplementedError();
 
+  @override
   Future<List<User>> getMembersByChatID(String chatID) =>
       _userProvider.getMembersByChatID(chatID);
+
+  @override
+  Future<User> getUserByEmail(String email) =>
+      _userProvider.getUserByEmail(email);
+
+  @override
+  Future<void> saveUserToFirestore(FirebaseUser.User user) =>
+      _userProvider.saveUserToFirestore(user);
 }

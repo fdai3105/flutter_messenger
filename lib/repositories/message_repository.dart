@@ -8,8 +8,8 @@ import 'base_repository.dart';
 class MessageRepository extends BaseRepository {
   final _messageProvider = MessageProvider();
 
-  Future<void> sendMessage(String chatId, Message message) =>
-      _messageProvider.sendMessage(chatId, message);
+  Future<void> sendMessage(String chatId, Message message, String sendTo) =>
+      _messageProvider.sendMessage(chatId, message, sendTo);
 
   Stream<List<Message>> getMessages(String chatId) =>
       _messageProvider.getMessages(chatId);

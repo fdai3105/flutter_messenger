@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart' as UserAuth;
 import 'package:flutter_bloc_chat/config/fields.dart';
 
@@ -25,13 +28,23 @@ class User {
         avatar: map[Fields.userFieldAvatar]);
   }
 
-  Map<String, dynamic> toMap(User user) {
+  Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    map[Fields.userFieldUID] = user.uID;
-    map[Fields.userFieldName] = user.name;
-    map[Fields.userFieldEmail] = user.email;
-    map[Fields.userFieldAvatar] = user.avatar;
+    map[Fields.userFieldUID] = uID;
+    map[Fields.userFieldName] = name;
+    map[Fields.userFieldEmail] = email;
+    map[Fields.userFieldAvatar] = avatar;
     return map;
+  }
+
+  // ignore: missing_return
+  factory User.fromQuerySnapShot(QuerySnapshot querySnapshot,
+      EventSink<List<User>> sink) {
+    final users = <User>[];
+    querySnapshot.docs.forEach((element) {
+      users.add(User.fromMap(element.data()[Fields.contactInfo]));
+    });
+    sink.add(users);
   }
 
   @override

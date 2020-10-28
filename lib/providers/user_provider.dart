@@ -14,7 +14,7 @@ class UserProvider {
     final ref = fireStore.collection(Paths.usersPath).doc(user.uid);
     final userExists = !await ref.snapshots().isEmpty;
     if (userExists) {
-      await ref.set({Fields.userInfo: User().toMap(User.fromAuth(user))});
+      await ref.set({Fields.userInfo: User.fromAuth(user).toMap()});
     }
   }
 

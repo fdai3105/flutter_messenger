@@ -2,16 +2,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_chat/blocs/auth_bloc/auth_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/message_bloc/message_bloc.dart';
 import 'package:flutter_bloc_chat/config/routes.dart';
-import 'package:flutter_bloc_chat/models/conversation.dart';
-import 'package:flutter_bloc_chat/providers/auth_provider.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import 'package:flutter_bloc_chat/widgets/conversation_item.dart';
-import '../models/message.dart';
-import '../providers/message_provider.dart';
-import '../blocs/chat_bloc/chat_bloc.dart';
-import '../blocs/conversation_bloc/conversation_bloc.dart';
+import 'package:flutter_bloc_chat/config/ui.dart';
+import 'package:flutter_bloc_chat/repositories/contact_repository.dart';
+import 'package:flutter_bloc_chat/widgets/widgets.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,12 +15,61 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage>
     with SingleTickerProviderStateMixin {
   TabController _tabController;
+  int currentPage = 0;
+
+  List<Widget> _appBar() {
+    final _appbar = [
+      AppBar(
+        title: Text(
+          "Chats",
+          style: UI.appBarTextStyle,
+        ),
+        backgroundColor: UI.appBarBackground,
+        shadowColor: Colors.transparent,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.add),
+              onPressed: () => context.bloc<AuthBloc>().add(LogoutAuthEvent()))
+        ],
+      ),
+      AppBar(
+        title: Text(
+          "Contacts",
+          style: UI.appBarTextStyle,
+        ),
+        backgroundColor: UI.appBarBackground,
+        shadowColor: Colors.transparent,
+        actions: [
+          IconButton(
+              icon: const Icon(Icons.add),
+              onPressed: () =>
+                  Navigator.pushNamed(context, Routes.findContact)),
+        ],
+      ),
+      AppBar(
+        title: Text(
+          "Settings",
+          style: UI.appBarTextStyle,
+        ),
+        backgroundColor: UI.appBarBackground,
+        shadowColor: Colors.transparent,
+        actions: [
+          IconButton(
+              icon: Icon(Icons.exit_to_app),
+              onPressed: () => context.bloc<AuthBloc>().add(LogoutAuthEvent()))
+        ],
+      ),
+    ];
+    return _appbar;
+  }
 
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
     _tabController.addListener(() {
-      print(_tabController.index);
+      setState(() {
+        currentPage = _tabController.index;
+      });
     });
     super.initState();
   }
@@ -36,14 +79,14 @@ class _HomePageState extends State<HomePage>
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: AppBar(),
+        appBar: _appBar()[currentPage],
         body: SafeArea(
             child: TabBarView(
           controller: _tabController,
           children: [
-            ConversationsList(),
-            ContactsList(),
-            Setting(),
+            ConversationTab(tabController: _tabController,),
+            ContactTab(),
+            SettingTab(),
           ],
         )),
         bottomNavigationBar: Container(
@@ -58,7 +101,7 @@ class _HomePageState extends State<HomePage>
                 iconMargin: EdgeInsets.zero,
               ),
               Tab(
-                icon: Icon(Icons.contact_page),
+                icon: Icon(Icons.contacts),
                 iconMargin: EdgeInsets.zero,
               ),
               Tab(
@@ -69,39 +112,12 @@ class _HomePageState extends State<HomePage>
             indicatorColor: Colors.red,
           ),
         ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {
+            ContactRepository().addContact("hoangphidai123@gmail.com");
+          },
+        ),
       ),
     );
-  }
-}
-
-class ConversationsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ConversationBloc, ConversationState>(
-        builder: (context, state) {
-      if (state is ConversationSuccess) {
-        return ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            itemCount: state.list.length,
-            itemBuilder: (builder, index) {
-              return ConversationItem(state.list[index]);
-            });
-      }
-      return Container();
-    });
-  }
-}
-
-class ContactsList extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-class Setting extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
   }
 }

@@ -5,7 +5,6 @@ import '../../models/chat.dart';
 import '../../models/message.dart';
 
 part 'chat_state.dart';
-
 part 'chat_event.dart';
 
 class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
@@ -26,3 +25,5 @@ class ChatsBloc extends Bloc<ChatsEvent, ChatsState> {
     chatRepository.getChats();
   }
 }
+
+
