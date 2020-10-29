@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/auth_bloc/auth_bloc.dart';
+part of 'pages.dart';
 
 class LoginPage extends StatelessWidget {
   @override

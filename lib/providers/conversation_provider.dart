@@ -1,24 +1,15 @@
-import 'dart:async';
+part of "providers.dart";
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc_chat/config/constants.dart';
-import 'package:flutter_bloc_chat/config/fields.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import '../config/paths.dart';
-
-import '../models/conversation.dart';
-
-class ConversationProvider {
+class ConversationProvider extends Provider {
   final FirebaseFirestore fireStore;
 
-  StreamController<List<Conversation>> conversationStreamController;
+  StreamController<List<Conversation>> _streamController;
 
   ConversationProvider({FirebaseFirestore fireStore})
       : fireStore = fireStore ?? FirebaseFirestore.instance;
 
   Stream<List<Conversation>> getConversations() {
-    conversationStreamController = StreamController();
-    conversationStreamController.sink;
+    _streamController = StreamController()..sink;
     final currentEmail = SharedPres.getUser().email;
     return fireStore
         .collection(Paths.chatsPath)
@@ -29,5 +20,10 @@ class ConversationProvider {
             StreamTransformer<QuerySnapshot, List<Conversation>>.fromHandlers(
                 handleData: (data, sink) =>
                     Conversation.fromQuerySnapShot(data, sink)));
+  }
+
+  @override
+  void dispose() {
+    _streamController.close();
   }
 }

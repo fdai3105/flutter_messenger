@@ -1,3 +1,5 @@
+part of 'config.dart';
+
 class Fields {
   static const String chatFieldsLastMessage = "lastMessage"; // primary
   static const String chatFieldsChatsID = "chatsID";
@@ -6,6 +8,7 @@ class Fields {
   static const String chatFieldsSenderName = "senderName";
   static const String chatFieldsEmail = "senderEmail";
   static const String chatFieldsMember = "members";
+  static const String chatFieldsMemberInfo = "membersInfo";
 
   static const String userInfo = "userInfo"; // primary
   static const String userFieldUID = "uID";
@@ -14,5 +17,9 @@ class Fields {
   static const String userFieldAvatar = "avatar";
 
   static const String contactInfo = "contactInfo"; // primary
+  static const String contactID = "id";
+  static const String contactCID = "contactConversationID";
+  static const String contactName = "name";
   static const String contactEmail = "email";
+  static const String contactAvatar = "avatar";
 }

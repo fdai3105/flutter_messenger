@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+part of 'utils.dart';
 
 class HexColor {
   static Color fromHex(String hexString) {

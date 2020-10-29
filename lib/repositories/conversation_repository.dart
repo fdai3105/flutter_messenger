@@ -1,10 +1,11 @@
-import '../providers/conversation_provider.dart';
+part of "repositories.dart";
 
-import '../models/conversation.dart';
-
-class ConversationRepository {
+class ConversationRepository implements Repository {
   final _conversationProvider = ConversationProvider();
 
   Stream<List<Conversation>> getConversations() =>
       _conversationProvider.getConversations();
+
+  @override
+  void dispose() => _conversationProvider.dispose();
 }

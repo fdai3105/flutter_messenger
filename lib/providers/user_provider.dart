@@ -1,8 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
-import 'package:flutter_bloc_chat/config/fields.dart';
-import 'package:flutter_bloc_chat/config/paths.dart';
-import '../models/user.dart';
+part of "providers.dart";
 
 class UserProvider {
   final FirebaseFirestore fireStore;
@@ -10,7 +6,7 @@ class UserProvider {
   UserProvider({FirebaseFirestore firestore})
       : fireStore = firestore ?? FirebaseFirestore.instance;
 
-  Future<void> saveUserToFirestore(FirebaseAuth.User user) async {
+  Future<void> saveUserToFirestore(fb_auth.User user) async {
     final ref = fireStore.collection(Paths.usersPath).doc(user.uid);
     final userExists = !await ref.snapshots().isEmpty;
     if (userExists) {
@@ -20,11 +16,11 @@ class UserProvider {
 
   Future<User> getUserByEmail(String email) async {
     var user;
-    final ref = await fireStore
+    final doc = await fireStore
         .collection(Paths.usersPath)
         .where("userInfo.email", isEqualTo: email)
         .get();
-    ref.docs.forEach((element) {
+    doc.docs.forEach((element) {
       if (element.data().isNotEmpty) {
         user = element.data()["userInfo"];
       }
@@ -36,10 +32,10 @@ class UserProvider {
 
   Future<List<User>> getMembersByChatID(String chatID) async {
     final _members = <User>[];
-    final ref = await fireStore.collection(Paths.chatsPath).doc(chatID).get();
-    final a = List<String>.from(ref.data()[Fields.chatFieldsMember]);
-    for (var i = 0; i < a.length; i++) {
-      final member = await getUserByEmail(a[i]);
+    final _doc = await fireStore.collection(Paths.chatsPath).doc(chatID).get();
+    final _emailMembers = List<String>.from(_doc.data()[Fields.chatFieldsMember]);
+    for (var i = 0; i < _emailMembers.length; i++) {
+      final member = await getUserByEmail(_emailMembers[i]);
       _members.add(member);
     }
     return _members;

@@ -1,9 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc_chat/config/ui.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/repositories/contact_repository.dart';
-import 'package:flutter_bloc_chat/widgets/widgets.dart';
+part of 'pages.dart';
 
 class FindContactPage extends StatefulWidget {
   @override
@@ -35,38 +30,22 @@ class _FindContactPageState extends State<FindContactPage> {
         padding: UI.paddingTop,
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Container(
-                  width: _size.width - 20,
-                  decoration: BoxDecoration(
-                      color: Colors.black12,
-                      borderRadius: BorderRadius.circular(20)),
-                  child: TextField(
-                    decoration: UI.textDecoration.copyWith(
-                        prefixIcon: const Icon(
-                          Icons.find_replace,
-                        ),
-                        hintText: "Search"),
-                    onChanged: (value) {
-                      setState(() {
-                        if (value.isNotEmpty) {
-                          _search = value;
-                        }
-                      });
-                    },
-                  ),
-                ),
-              ],
+            FindContactInput(
+              valueChanged: (value) {
+                setState(() {
+                  if (value.isNotEmpty) {
+                    _search = value;
+                  }
+                });
+              },
             ),
             const SizedBox(
               height: 30,
             ),
-            FutureBuilder<List<User>>(
+            FutureBuilder<List<Contact>>(
                 future: ContactRepository().findContacts(_search),
                 builder: (context, snapshot) {
+                  print(snapshot.data);
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
                       if (snapshot.data.isNotEmpty) {
@@ -75,7 +54,7 @@ class _FindContactPageState extends State<FindContactPage> {
                               itemCount: snapshot.data.length,
                               itemBuilder: (context, index) {
                                 return FindContactItem(
-                                  user: snapshot.data[index],
+                                  contact: snapshot.data[index],
                                 );
                               }),
                         );

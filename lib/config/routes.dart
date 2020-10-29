@@ -1,9 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc_chat/pages/chat_info.dart';
-import 'package:flutter_bloc_chat/pages/find_contact_page.dart';
-import '../pages/login_page.dart';
-import '../pages/home_page.dart';
-import '../pages/chat_page.dart';
+part of 'config.dart';
 
 class Routes {
   Routes._();
@@ -18,7 +13,7 @@ class Routes {
   static final Map<String, WidgetBuilder> routes = <String, WidgetBuilder>{
     login: (context) => LoginPage(),
     home: (context) => HomePage(),
-    chat: (context) => ChatPage(),
+    chat: (context) => const ChatPage(),
     findContact: (context) => FindContactPage(),
     chatInfo: (context) => ChatInfo(),
     // setting: (context) => SettingPage(),

@@ -1,6 +1,4 @@
-import 'package:flutter_bloc_chat/config/constants.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+part of 'utils.dart';
 
 class SharedPres {
   static SharedPreferences sharedPreferences;

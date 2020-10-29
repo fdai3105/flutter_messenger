@@ -1,13 +1,4 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc_chat/models/message.dart';
-import 'package:flutter_bloc_chat/repositories/message_repository.dart';
-
-part 'message_event.dart';
-
-part 'message_state.dart';
+part of '../blocs.dart';
 
 class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
   final MessageRepository messageRepository;
@@ -26,20 +17,23 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
       yield MessagesProgress();
       yield MessagesSuccess(event.messages);
     } else if (event is SendMessageEvent) {
-      yield* _mapSendMessageEventToState(event.message, event.sendTo);
+      yield* _mapSendMessageEventToState(event.text, event.sendTo);
     }
   }
 
   Stream<MessagesState> _mapFetchMessagesEventToState(String chatID) async* {
-    if(chatID != null) {
-      messageRepository.getMessages(chatID).listen((event) {
-        add(ReceiveMessagesEvent(event));
-      });
-    }
+    messageRepository.getMessages(chatID).listen((event) {
+      add(ReceiveMessagesEvent(event));
+    });
   }
 
   Stream<MessagesState> _mapSendMessageEventToState(
-      Message message, String sendTo) async* {
+      String text, String sendTo) async* {
+    final message = Message(
+        text: text,
+        timeStamp: DateTime.now().millisecondsSinceEpoch,
+        senderName: SharedPres.getUser().name,
+        senderEmail: SharedPres.getUser().email);
     await messageRepository.sendMessage(chatID, message, sendTo);
   }
 }

@@ -1,3 +1,5 @@
+part of 'config.dart';
+
 class Paths {
   // local paths
   static const String assetIllustrations = "assets/images/illustrations";

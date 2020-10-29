@@ -1,5 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc_chat/utils/hex_color.dart';
+part of 'config.dart';
 
 class UI {
   UI();
@@ -12,16 +11,16 @@ class UI {
   static final textStyle = TextStyle(color: textColor, fontSize: 14);
 
   // appBar
-  static final appBarBackground = Colors.white;
+  static final appBarBackground = HexColor.fromHex("F7F7F9");
   static final appBarTextColor = HexColor.fromHex("292941");
   static final appBarIconColor = appBarTextColor;
   static final appBarTextStyle = TextStyle(color: appBarTextColor);
 
   static final primaryColor = HexColor.fromHex("EB7E44");
-  static final bodyBackground = Colors.white;
+  static final bodyBackground = HexColor.fromHex("F7F7F9");
 
   /// text fields
-  static final textDecoration = InputDecoration(
+  static const textDecoration = InputDecoration(
     border: InputBorder.none,
     focusedBorder: InputBorder.none,
     enabledBorder: InputBorder.none,

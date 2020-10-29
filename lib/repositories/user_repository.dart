@@ -1,7 +1,4 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseUser;
-import '../models/user.dart';
-import '../providers/user_provider.dart';
+part of "repositories.dart";
 
 class UserRepository implements UserProvider {
   final UserProvider _userProvider = UserProvider();
@@ -18,6 +15,6 @@ class UserRepository implements UserProvider {
       _userProvider.getUserByEmail(email);
 
   @override
-  Future<void> saveUserToFirestore(FirebaseUser.User user) =>
+  Future<void> saveUserToFirestore(firebase_auth.User user) =>
       _userProvider.saveUserToFirestore(user);
 }

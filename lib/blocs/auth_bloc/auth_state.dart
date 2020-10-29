@@ -1,4 +1,4 @@
-part of 'auth_bloc.dart';
+part of  '../blocs.dart';
 
 abstract class AuthState extends Equatable {
   const AuthState();
@@ -11,7 +11,7 @@ class AuthInitial extends AuthState {
 
 // authenticated
 class AuthSuccess extends AuthState {
-  final FirebaseAuth.User user;
+  final fb_auth.User user;
 
   const AuthSuccess(this.user);
   @override

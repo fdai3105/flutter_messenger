@@ -1,23 +1,18 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/providers/contact_provider.dart';
+part of "repositories.dart";
 
-class ContactRepository implements ContactProvider {
+class ContactRepository implements Repository {
   final ContactProvider _contactProvider = ContactProvider();
 
-  @override
   Future<void> addContact(String email) => _contactProvider.addContact(email);
 
-  @override
-  Stream<List<User>> getContacts(String uID) =>
+  Stream<List<Contact>> getContacts(String uID) =>
       _contactProvider.getContacts(uID);
 
-  @override
   Future<void> removeContact(String email) =>
       _contactProvider.removeContact(email);
 
-  @override
-  Future<List<User>> findContacts(String email) =>
+  Future<List<Contact>> findContacts(String email) =>
       _contactProvider.findContacts(email);
+
+  void dispose() => _contactProvider.dispose();
 }

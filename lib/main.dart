@@ -1,23 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/auth_bloc/auth_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/contact_bloc/contact_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/message_bloc/message_bloc.dart';
-import 'package:flutter_bloc_chat/pages/login_page.dart';
-import 'package:flutter_bloc_chat/providers/message_provider.dart';
-import 'package:flutter_bloc_chat/repositories/auth_repository.dart';
-import 'package:flutter_bloc_chat/repositories/contact_repository.dart';
-import 'package:flutter_bloc_chat/repositories/conversation_repository.dart';
-import 'package:flutter_bloc_chat/repositories/message_repository.dart';
-import 'package:flutter_bloc_chat/repositories/user_repository.dart';
-import 'package:flutter_bloc_chat/simple_bloc_observer.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import 'config/routes.dart';
-import 'blocs/conversation_bloc/conversation_bloc.dart';
-import 'pages/home_page.dart';
-import 'providers/conversation_provider.dart';
+import 'repositories/repositories.dart';
+import 'utils/utils.dart';
+import 'blocs/blocs.dart';
+import 'config/config.dart';
+import 'pages/pages.dart';
+import 'simple_bloc_observer.dart';
 
 // ignore: avoid_void_async
 void main() async {

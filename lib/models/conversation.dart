@@ -1,32 +1,28 @@
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import '../config/fields.dart';
-
-import '../config/constants.dart';
-import 'Message.dart';
+part of 'models.dart';
 
 class Conversation {
   final String chatId;
   final Message latestMessage;
   final String user;
-  final List<String> members;
+  final List<Contact> members;
 
   Conversation({this.chatId, this.latestMessage, this.user, this.members});
 
   factory Conversation.fromFireStore(DocumentSnapshot doc) {
     final data = doc.data();
-    final _members = <String>[];
+    final _members = <Contact>[];
+    final members = <Contact>[];
+
     final selfEmail = SharedPres.getUser().email;
-    final memberEmails = List<String>.from(data["members"]);
-    for (var i = 0; i < memberEmails.length; i++) {
-      if (memberEmails[i] != selfEmail) {
-        _members.add(memberEmails[i]);
+    final Map memberMap = data[Fields.chatFieldsMemberInfo];
+    memberMap.forEach((key, value) {
+      members.add(Contact.fromMap(value));
+    });
+    for (var i = 0; i < members.length; i++) {
+      if (members[i].email != selfEmail) {
+        _members.add(members[i]);
       }
     }
-
     return Conversation(
         chatId: doc.id,
         latestMessage:

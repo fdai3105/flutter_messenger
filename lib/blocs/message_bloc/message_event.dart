@@ -1,4 +1,4 @@
-part of 'message_bloc.dart';
+part of  '../blocs.dart';
 
 abstract class MessagesEvent extends Equatable {
   const MessagesEvent();
@@ -34,16 +34,16 @@ class ReceiveMessagesEvent extends MessagesEvent {
 
 class SendMessageEvent extends MessagesEvent {
   final String chatsID;
-  final Message message;
+  final String text;
   final String sendTo;
 
-  const SendMessageEvent(this.chatsID,this.message, this.sendTo);
+  const SendMessageEvent(this.chatsID,this.text, this.sendTo);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [text];
 
   @override
   String toString() {
-    return 'SendMessageEvent{message: $message}';
+    return 'SendMessageEvent{message: $text}';
   }
 }

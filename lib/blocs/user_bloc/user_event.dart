@@ -1,4 +1,4 @@
-part of 'user_bloc.dart';
+part of  '../blocs.dart';
 
 abstract class UserEvent extends Equatable {
   const UserEvent();

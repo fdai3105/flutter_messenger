@@ -1,4 +1,5 @@
-part of 'user_bloc.dart';
+part of  '../blocs.dart';
+
 
 abstract class UserState extends Equatable {
   const UserState();

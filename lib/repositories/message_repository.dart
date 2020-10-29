@@ -1,11 +1,6 @@
-import 'dart:async';
+part of "repositories.dart";
 
-import '../providers/message_provider.dart';
-
-import '../models/message.dart';
-import 'base_repository.dart';
-
-class MessageRepository extends BaseRepository {
+class MessageRepository implements Repository {
   final _messageProvider = MessageProvider();
 
   Future<void> sendMessage(String chatId, Message message, String sendTo) =>
@@ -18,5 +13,5 @@ class MessageRepository extends BaseRepository {
       _messageProvider.getPreviousMessages(chatID, prevMess);
 
   @override
-  void dispose() {}
+  void dispose() => _messageProvider.dispose();
 }

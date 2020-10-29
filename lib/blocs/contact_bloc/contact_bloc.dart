@@ -1,12 +1,4 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/repositories/contact_repository.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-
-part 'contact_event.dart';
-
-part 'contact_state.dart';
+part of  '../blocs.dart';
 
 class ContactBloc extends Bloc<ContactEvent, ContactState> {
   final ContactRepository _contactRepository;
@@ -19,6 +11,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
       yield* _mapFetchContactEventToState();
     } else if (event is ReceiveContactEvent) {
       yield ContactProgress();
+      print(event.contact);
       yield ContactSuccess(event.contact);
     } else if (event is AddContactEvent) {
       yield* _mapAddContactEventToState(event.email);

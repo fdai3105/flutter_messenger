@@ -1,9 +1,4 @@
-import 'dart:async';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter_bloc_chat/config/constants.dart';
-import 'package:flutter_bloc_chat/config/fields.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
+part of 'models.dart';
 
 class Message {
   String text;

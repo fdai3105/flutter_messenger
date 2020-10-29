@@ -1,4 +1,4 @@
-part of 'message_bloc.dart';
+part of  '../blocs.dart';
 
 abstract class MessagesState extends Equatable {
   const MessagesState();

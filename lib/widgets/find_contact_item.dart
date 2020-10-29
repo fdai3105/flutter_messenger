@@ -1,23 +1,23 @@
 part of 'widgets.dart';
 
 class FindContactItem extends StatelessWidget {
-  final User user;
+  final Contact contact;
 
-  const FindContactItem({Key key, this.user}) : super(key: key);
+  const FindContactItem({Key key, this.contact}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
       leading: ClipOval(
         child: Image.network(
-          user.avatar,
+          contact.avatar,
         ),
       ),
-      title: Text(user.name),
-      subtitle: Text(user.email),
+      title: Text(contact.name),
+      subtitle: Text(contact.email),
       trailing: FlatButton(
           onPressed: () {
-            context.bloc<ContactBloc>().add(AddContactEvent(user.email));
+            context.bloc<ContactBloc>().add(AddContactEvent(contact.email));
             Navigator.pop(context);
           },
           color: Colors.blueAccent,

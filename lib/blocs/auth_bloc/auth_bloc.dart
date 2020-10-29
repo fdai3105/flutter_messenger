@@ -1,32 +1,16 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-import 'package:firebase_auth/firebase_auth.dart' as FirebaseAuth;
-import 'package:flutter_bloc_chat/repositories/user_repository.dart';
-import '../../models/user.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import '../../repositories/auth_repository.dart';
-
-part 'auth_event.dart';
-
-part 'auth_state.dart';
+part of  '../blocs.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
   final SharedPres _sharedPres;
 
-  AuthBloc(
-    this._authRepository,
-    this._userRepository,
-    this._sharedPres,
-  ) : super(AuthInitial());
+  AuthBloc(this._authRepository,
+      this._userRepository,
+      this._sharedPres,) : super(AuthInitial());
 
   @override
-  Stream<AuthState> mapEventToState(
-    AuthEvent event,
-  ) async* {
+  Stream<AuthState> mapEventToState(AuthEvent event,) async* {
     if (event is AppLaunchAuthEvent) {
       yield* _mapAppLaunchAuthEventToState();
     } else if (event is GoogleLoginAuthEvent) {
@@ -39,7 +23,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Stream<AuthState> _mapAppLaunchAuthEventToState() async* {
     yield AuthProgress();
     if (await _authRepository.isLoggedIn()) {
-      yield AuthSuccess(null);
+      yield const AuthSuccess(null);
     } else {
       yield AuthFail();
     }
@@ -49,7 +33,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     final user = await _authRepository.loginWithGoogle();
     if (user != null) {
       await SharedPres.saveUser(User.fromAuth(user));
-      _userRepository.saveUserToFirestore(user);
+      await _userRepository.saveUserToFirestore(user);
       try {
         yield AuthSuccess(user);
       } catch (e) {

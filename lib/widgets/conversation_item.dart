@@ -14,36 +14,30 @@ class ConversationItem extends StatelessWidget {
             context,
             MaterialPageRoute(
                 builder: (context) => ChatPage(
-                      chatID: _conversation.chatId,
-                      runFromHome: true,
-                      sendTo: _conversation.members.last,
+                      cID: _conversation.chatId,
+                      member: _conversation.members.last,
                     ))),
-        child: Container(
-          margin: const EdgeInsets.all(10),
-          child: Row(
-            children: [
-              ClipOval(
-                child: Image.asset(
-                  "assets/images/place_holder/image-placeholder.jpg",
-                  height: 50,
-                  width: 50,
-                ),
+        child: ListTile(
+            leading: ClipOval(
+              child: Image.network(
+                _conversation.members.first.avatar,
+                height: 50,
+                width: 50,
               ),
-              const SizedBox(
-                width: 10,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(_conversation.members.length > 1
-                      ? _conversation.members.first
-                      : "${_conversation.members.first}"),
-                  Text(_conversation.latestMessage.text),
-                ],
-              )
-            ],
-          ),
-        ),
+            ),
+            title: Text(_conversation.members.first.name),
+            subtitle: RichText(
+              text: TextSpan(style: UI.textStyle, children: [
+                TextSpan(
+                    text: _conversation.latestMessage.isSelf
+                        ? "You: ${_conversation.latestMessage.text}"
+                        : _conversation.latestMessage.text),
+                const TextSpan(text: " - "),
+                TextSpan(
+                    text: CustomDateTime.customDateTime(
+                        _conversation.latestMessage.timeStamp)),
+              ]),
+            )),
       ),
     );
   }

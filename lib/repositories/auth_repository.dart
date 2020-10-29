@@ -1,17 +1,21 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_bloc_chat/utils/shared_pres.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../providers/auth_provider.dart';
+part of "repositories.dart";
 
-import 'base_repository.dart';
-
-class AuthRepository extends BaseRepository {
+class AuthRepository implements IAuthRepository {
   AuthProvider authProvider = AuthProvider();
 
-  Future<User> loginWithGoogle() => authProvider.signInWithGoogle();
+  @override
+  Future<User> login() {
+    throw UnimplementedError();
+  }
 
+  @override
+  Future<firebase_auth.User> loginWithGoogle() =>
+      authProvider.signInWithGoogle();
+
+  @override
   Future<bool> isLoggedIn() => authProvider.isLoggedIn();
 
+  @override
   Future<void> signOut() => authProvider.signOut();
 
   @override

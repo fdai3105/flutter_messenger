@@ -3,7 +3,7 @@ part of 'widgets.dart';
 class ConversationTab extends StatelessWidget {
   final TabController tabController;
 
-  const ConversationTab({Key key, this.tabController}) : super(key: key);
+  const ConversationTab(this.tabController);
 
   @override
   Widget build(BuildContext context) {

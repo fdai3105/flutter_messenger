@@ -1,4 +1,4 @@
-part of 'contact_bloc.dart';
+part of '../blocs.dart';
 
 abstract class ContactState extends Equatable {
   const ContactState();
@@ -10,7 +10,7 @@ class ContactInitial extends ContactState {
 }
 
 class ContactSuccess extends ContactState {
-  final List<User> contacts;
+  final List<Contact> contacts;
 
   const ContactSuccess(this.contacts);
 

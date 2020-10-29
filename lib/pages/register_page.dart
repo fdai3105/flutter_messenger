@@ -1,6 +1,6 @@
-import 'package:flutter/material.dart';
+part of 'pages.dart';
 
-class register_page extends StatelessWidget {
+class RegisterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container();

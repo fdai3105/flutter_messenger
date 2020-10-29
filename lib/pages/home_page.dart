@@ -1,11 +1,4 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_chat/blocs/auth_bloc/auth_bloc.dart';
-import 'package:flutter_bloc_chat/config/routes.dart';
-import 'package:flutter_bloc_chat/config/ui.dart';
-import 'package:flutter_bloc_chat/repositories/contact_repository.dart';
-import 'package:flutter_bloc_chat/widgets/widgets.dart';
+part of 'pages.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -26,11 +19,6 @@ class _HomePageState extends State<HomePage>
         ),
         backgroundColor: UI.appBarBackground,
         shadowColor: Colors.transparent,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.add),
-              onPressed: () => context.bloc<AuthBloc>().add(LogoutAuthEvent()))
-        ],
       ),
       AppBar(
         title: Text(
@@ -84,39 +72,12 @@ class _HomePageState extends State<HomePage>
             child: TabBarView(
           controller: _tabController,
           children: [
-            ConversationTab(tabController: _tabController,),
+            ConversationTab(_tabController,),
             ContactTab(),
             SettingTab(),
           ],
         )),
-        bottomNavigationBar: Container(
-          height: 50,
-          child: TabBar(
-            controller: _tabController,
-            labelColor: Colors.red,
-            onTap: (index) {},
-            tabs: const [
-              Tab(
-                icon: Icon(Icons.home),
-                iconMargin: EdgeInsets.zero,
-              ),
-              Tab(
-                icon: Icon(Icons.contacts),
-                iconMargin: EdgeInsets.zero,
-              ),
-              Tab(
-                icon: Icon(Icons.settings),
-                iconMargin: EdgeInsets.zero,
-              )
-            ],
-            indicatorColor: Colors.red,
-          ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () {
-            ContactRepository().addContact("hoangphidai123@gmail.com");
-          },
-        ),
+        bottomNavigationBar: HomeBottomNavigation(tabController: _tabController,)
       ),
     );
   }

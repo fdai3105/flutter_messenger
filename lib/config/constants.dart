@@ -1,3 +1,5 @@
+part of 'config.dart';
+
 class Constants {
   static const sharePresUID = "sharePresUID";
   static const sharePresEmail = 'sharePresEmail';

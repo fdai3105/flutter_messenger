@@ -1,4 +1,4 @@
-part of 'contact_bloc.dart';
+part of '../blocs.dart';
 
 abstract class ContactEvent extends Equatable {
   const ContactEvent();
@@ -10,7 +10,7 @@ class FetchContactEvent extends ContactEvent {
 }
 
 class ReceiveContactEvent extends ContactEvent {
-  final List<User> contact;
+  final List<Contact> contact;
 
   const ReceiveContactEvent(this.contact);
 
@@ -22,6 +22,7 @@ class AddContactEvent extends ContactEvent {
   final String email;
 
   const AddContactEvent(this.email);
+
   @override
   List<Object> get props => [email];
 }

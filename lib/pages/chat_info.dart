@@ -1,6 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc_chat/models/user.dart';
-import 'package:flutter_bloc_chat/repositories/user_repository.dart';
+part of 'pages.dart';
 
 class ChatInfo extends StatefulWidget {
   @override
@@ -9,8 +7,6 @@ class ChatInfo extends StatefulWidget {
 
 class _ChatInfoState extends State<ChatInfo> {
   UserRepository _repository;
-
-  List<User> _members;
 
   @override
   void initState() {
@@ -28,7 +24,6 @@ class _ChatInfoState extends State<ChatInfo> {
             .getMembersByChatID(ModalRoute.of(context).settings.arguments),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            print(snapshot.data.length);
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (contextB, index) {
