@@ -1,16 +1,18 @@
 # flutter_bloc_chat
 
-A new Flutter application.
+A message app use Firebase
 
-## Getting Started
+# features
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [x] Chat 1vs1
+- [x] Login with Google
+- [x] Find and add contact
+- [ ] Remove contact
+- [ ] Remove message or delete conversation
+- [ ] Edit profile
+- [ ] Settings app
+- [ ] Notification
+- [ ] Chat group
+- [ ] Can send attachment
+- [ ] Online/offline contact status
+- [ ] Seen or unseen message
