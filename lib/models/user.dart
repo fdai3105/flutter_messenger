@@ -18,29 +18,19 @@ class User {
 
   factory User.fromMap(Map map) {
     return User(
-        uID: map[Fields.userFieldUID],
-        name: map[Fields.userFieldName],
-        email: map[Fields.userFieldEmail],
-        avatar: map[Fields.userFieldAvatar]);
+        uID: map[Fields.userUID],
+        name: map[Fields.userName],
+        email: map[Fields.userEmail],
+        avatar: map[Fields.userAvatar]);
   }
 
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    map[Fields.userFieldUID] = uID;
-    map[Fields.userFieldName] = name;
-    map[Fields.userFieldEmail] = email;
-    map[Fields.userFieldAvatar] = avatar;
+    map[Fields.userUID] = uID;
+    map[Fields.userName] = name;
+    map[Fields.userEmail] = email;
+    map[Fields.userAvatar] = avatar;
     return map;
-  }
-
-  // ignore: missing_return
-  factory User.fromQuerySnapShot(QuerySnapshot querySnapshot,
-      EventSink<List<User>> sink) {
-    final users = <User>[];
-    querySnapshot.docs.forEach((element) {
-      users.add(User.fromMap(element.data()[Fields.contactInfo]));
-    });
-    sink.add(users);
   }
 
   @override

@@ -21,10 +21,6 @@ class HomeBottomNavigation extends StatelessWidget {
             icon: Icon(Icons.contacts),
             iconMargin: EdgeInsets.zero,
           ),
-          Tab(
-            icon: Icon(Icons.settings),
-            iconMargin: EdgeInsets.zero,
-          )
         ],
         indicatorColor: UI.primaryColor,
         unselectedLabelColor: UI.primaryColor.withOpacity(0.5),

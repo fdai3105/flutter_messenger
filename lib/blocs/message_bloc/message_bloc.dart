@@ -33,7 +33,8 @@ class MessagesBloc extends Bloc<MessagesEvent, MessagesState> {
         text: text,
         timeStamp: DateTime.now().millisecondsSinceEpoch,
         senderName: SharedPres.getUser().name,
-        senderEmail: SharedPres.getUser().email);
+        senderEmail: SharedPres.getUser().email,
+        sendTo: sendTo);
     await messageRepository.sendMessage(chatID, message, sendTo);
   }
 }

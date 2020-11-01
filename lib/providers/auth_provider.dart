@@ -12,7 +12,7 @@ class AuthProvider extends Provider {
               "https://www.googleapis.com/auth/contacts.readonly"
             ]);
 
-  Future<fb_auth.User> singIn(String email, String pas) {}
+  Future<fb_auth.User> signIn(String email, String pas) {}
 
   Future<fb_auth.User> signInWithGoogle() async {
     final googleSignInAccount = await _googleSignIn.signIn();

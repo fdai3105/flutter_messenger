@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:settings_ui/settings_ui.dart';
 import '../blocs/blocs.dart';
 import '../config/config.dart';
 import '../pages/pages.dart';
@@ -21,8 +22,6 @@ part 'conversation_item.dart';
 part 'conversation_tab.dart';
 
 part 'contact_tab.dart';
-
-part 'setting_tab.dart';
 
 part 'chat_list.dart';
 

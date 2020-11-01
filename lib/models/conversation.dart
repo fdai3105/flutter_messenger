@@ -14,7 +14,7 @@ class Conversation {
     final members = <Contact>[];
 
     final selfEmail = SharedPres.getUser().email;
-    final Map memberMap = data[Fields.chatFieldsMemberInfo];
+    final Map memberMap = data[Fields.chatMemberInfo];
     memberMap.forEach((key, value) {
       members.add(Contact.fromMap(value));
     });
@@ -26,7 +26,7 @@ class Conversation {
     return Conversation(
         chatId: doc.id,
         latestMessage:
-            Message.fromMap(Map.from(data[Fields.chatFieldsLastMessage])),
+            Message.fromMap(Map.from(data[Fields.chatsLastMessage])),
         user: selfEmail,
         members: _members);
   }

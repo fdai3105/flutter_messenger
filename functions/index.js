@@ -1,9 +1,21 @@
-const functions = require('firebase-functions');
+const functions = require('firebase-functions')
+const admin = require('firebase-admin')
+admin.initializeApp()
 
-const admin = require('firebase-admin');
-admin.initializeApp();
-
-exports.helloWorld = functions.https.onRequest((request, response) => {
-  functions.logger.info("Hello logs!", {structuredData: true});
-  response.send("Hello from Firebase!");
-});
+exports.sendNotification = functions.firestore
+    .document('chats/{document}/messages/{document1}')
+    .onCreate((snap, context) => {
+        console.log('----------------start function--------------------')
+        console.log(snap.data())
+        admin
+            .firestore()
+            .collection('users')
+            .get()
+            .then(querySnapshot => {
+                console.log(querySnapshot.size)
+                querySnapshot.forEach(userTo => {
+                    console.log(`Found user to: ${userTo.data()}`)
+                })
+            })
+        return null
+    })

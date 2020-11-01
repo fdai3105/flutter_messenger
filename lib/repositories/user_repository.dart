@@ -4,7 +4,7 @@ class UserRepository implements UserProvider {
   final UserProvider _userProvider = UserProvider();
 
   @override
-  FirebaseFirestore get fireStore => throw UnimplementedError();
+  FirebaseFirestore get _fireStore => throw UnimplementedError();
 
   @override
   Future<List<User>> getMembersByChatID(String chatID) =>
@@ -17,4 +17,7 @@ class UserRepository implements UserProvider {
   @override
   Future<void> saveUserToFirestore(firebase_auth.User user) =>
       _userProvider.saveUserToFirestore(user);
+
+  @override
+  Future<User> getUserByUID(String uID) => _userProvider.getUserByUID(uID);
 }

@@ -38,11 +38,13 @@ dependencies:
   google_sign_in: ^4.5.1
   firebase_auth: ^0.18.1+2
   cloud_firestore: ^0.14.0
+  firebase_messaging: ^7.0.3
 
   # Utils
   intl: ^0.16.1
   pedantic: ^1.0.0
   shared_preferences: ^0.5.8
+  settings_ui: ^0.4.0
 
 dev_dependencies:
   flutter_test:

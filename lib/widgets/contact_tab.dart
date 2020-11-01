@@ -68,7 +68,10 @@ class ContactTab extends StatelessWidget {
         } else if (state is ContactFail) {
           return const Text("Contact fail");
         } else {
-          return Container();
+          return Center(
+            child: Container(
+                height: 50, width: 50, child: const CircularProgressIndicator()),
+          );
         }
       }),
     );

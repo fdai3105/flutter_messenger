@@ -13,7 +13,7 @@ class ConversationProvider extends Provider {
     final currentEmail = SharedPres.getUser().email;
     return fireStore
         .collection(Paths.chatsPath)
-        .where(Fields.chatFieldsMember, arrayContains: currentEmail)
+        .where(Fields.chatMember, arrayContains: currentEmail)
         .orderBy("lastMessage.time", descending: true)
         .snapshots()
         .transform(

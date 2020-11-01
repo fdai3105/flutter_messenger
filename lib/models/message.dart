@@ -5,6 +5,7 @@ class Message {
   int timeStamp;
   String senderName;
   String senderEmail;
+  String sendTo;
   bool isSelf;
   String chatsID;
 
@@ -13,6 +14,7 @@ class Message {
       this.timeStamp,
       this.senderName,
       this.senderEmail,
+      this.sendTo,
       this.isSelf,
       this.chatsID});
 
@@ -23,12 +25,12 @@ class Message {
 
   factory Message.fromMap(Map data) {
     return Message(
-        chatsID: data[Fields.chatFieldsChatsID],
-        text: data[Fields.chatFieldsText],
-        timeStamp: data[Fields.chatFieldsTime],
-        senderName: data[Fields.chatFieldsSenderName],
-        senderEmail: data[Fields.chatFieldsEmail],
-        isSelf: data[Fields.chatFieldsEmail] == SharedPres.getUser().email);
+        chatsID: data[Fields.chatChatsID],
+        text: data[Fields.chatText],
+        timeStamp: data[Fields.chatTime],
+        senderName: data[Fields.chatSenderName],
+        senderEmail: data[Fields.chatEmail],
+        isSelf: data[Fields.chatEmail] == SharedPres.getUser().email);
   }
 
   // ignore: missing_return
@@ -43,11 +45,12 @@ class Message {
 
   Map<String, dynamic> toMap() {
     final map = <String, dynamic>{};
-    map[Fields.chatFieldsChatsID] = chatsID;
-    map[Fields.chatFieldsText] = text;
-    map[Fields.chatFieldsTime] = timeStamp;
-    map[Fields.chatFieldsSenderName] = senderName;
-    map[Fields.chatFieldsEmail] = senderEmail;
+    map[Fields.chatChatsID] = chatsID;
+    map[Fields.chatText] = text;
+    map[Fields.chatTime] = timeStamp;
+    map[Fields.chatSenderName] = senderName;
+    map[Fields.chatEmail] = senderEmail;
+    map[Fields.chatSendTo] = sendTo;
     return map;
   }
 

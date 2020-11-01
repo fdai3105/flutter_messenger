@@ -1,23 +1,27 @@
 part of 'config.dart';
 
 class Fields {
-  static const String chatFieldsLastMessage = "lastMessage"; // primary
-  static const String chatFieldsChatsID = "chatsID";
-  static const String chatFieldsText = "text";
-  static const String chatFieldsTime = "time";
-  static const String chatFieldsSenderName = "senderName";
-  static const String chatFieldsEmail = "senderEmail";
-  static const String chatFieldsMember = "members";
-  static const String chatFieldsMemberInfo = "membersInfo";
+  static const String chatsLastMessage = "lastMessage"; // primary
+  static const String chatChatsID = "chatsID";
+  static const String chatText = "text";
+  static const String chatTime = "time";
+  static const String chatSenderName = "senderName";
+  static const String chatEmail = "senderEmail";
+  static const String chatSendTo = "sendTo";
+  static const String chatMember = "members";
+  static const String chatMemberInfo = "membersInfo";
 
-  static const String userInfo = "userInfo"; // primary
-  static const String userFieldUID = "uID";
-  static const String userFieldName = "name";
-  static const String userFieldEmail = "email";
-  static const String userFieldAvatar = "avatar";
+  static const String userUID = "uID";
+  static const String userName = "name";
+  static const String userEmail = "email";
+  static const String userAvatar = "avatar";
+  static const String userFCMToken = "fcmToken";
 
-  static const String contactInfo = "contactInfo"; // primary
-  static const String contactID = "id";
+  static const String userFCM = "userFCM";
+  static const String fcmUID = "uID";
+  static const String fcmToken = "fcmToken";
+
+  static const String contactID = "cID";
   static const String contactCID = "contactConversationID";
   static const String contactName = "name";
   static const String contactEmail = "email";

@@ -5,14 +5,14 @@ class ContactRepository implements Repository {
 
   Future<void> addContact(String email) => _contactProvider.addContact(email);
 
-  Stream<List<Contact>> getContacts(String uID) =>
+  Stream<Map<String,String>> getContacts(String uID) =>
       _contactProvider.getContacts(uID);
 
   Future<void> removeContact(String email) =>
       _contactProvider.removeContact(email);
 
-  Future<List<Contact>> findContacts(String email) =>
-      _contactProvider.findContacts(email);
+  Future<List<Contact>> findContact(String email) =>
+      _contactProvider.findContact(email);
 
   void dispose() => _contactProvider.dispose();
 }

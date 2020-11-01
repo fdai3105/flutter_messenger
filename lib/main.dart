@@ -1,6 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_chat/providers/notification_provider.dart';
 import 'repositories/repositories.dart';
 import 'utils/utils.dart';
 import 'blocs/blocs.dart';
@@ -10,7 +11,7 @@ import 'simple_bloc_observer.dart';
 
 // ignore: avoid_void_async
 void main() async {
-  Bloc.observer = SimpleBlocObserver();
+  // Bloc.observer = SimpleBlocObserver();
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await SharedPres.prefsInstance();

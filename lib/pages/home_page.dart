@@ -17,6 +17,8 @@ class _HomePageState extends State<HomePage>
           "Chats",
           style: UI.appBarTextStyle,
         ),
+        leading: avatarButton(),
+        titleSpacing: 5,
         backgroundColor: UI.appBarBackground,
         shadowColor: Colors.transparent,
       ),
@@ -25,6 +27,8 @@ class _HomePageState extends State<HomePage>
           "Contacts",
           style: UI.appBarTextStyle,
         ),
+        leading: avatarButton(),
+        titleSpacing: 5,
         backgroundColor: UI.appBarBackground,
         shadowColor: Colors.transparent,
         actions: [
@@ -34,26 +38,28 @@ class _HomePageState extends State<HomePage>
                   Navigator.pushNamed(context, Routes.findContact)),
         ],
       ),
-      AppBar(
-        title: Text(
-          "Settings",
-          style: UI.appBarTextStyle,
-        ),
-        backgroundColor: UI.appBarBackground,
-        shadowColor: Colors.transparent,
-        actions: [
-          IconButton(
-              icon: Icon(Icons.exit_to_app),
-              onPressed: () => context.bloc<AuthBloc>().add(LogoutAuthEvent()))
-        ],
-      ),
     ];
     return _appbar;
   }
 
+  Widget avatarButton() {
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, Routes.setting);
+      },
+      child: Container(
+        padding: const EdgeInsets.all(10),
+        child: ClipOval(
+            child: Image.network(
+          SharedPres.getUser().avatar,
+        )),
+      ),
+    );
+  }
+
   @override
   void initState() {
-    _tabController = TabController(length: 3, vsync: this);
+    _tabController = TabController(length: 2, vsync: this);
     _tabController.addListener(() {
       setState(() {
         currentPage = _tabController.index;
@@ -67,18 +73,20 @@ class _HomePageState extends State<HomePage>
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-        appBar: _appBar()[currentPage],
-        body: SafeArea(
-            child: TabBarView(
-          controller: _tabController,
-          children: [
-            ConversationTab(_tabController,),
-            ContactTab(),
-            SettingTab(),
-          ],
-        )),
-        bottomNavigationBar: HomeBottomNavigation(tabController: _tabController,)
-      ),
+          appBar: _appBar()[currentPage],
+          body: SafeArea(
+              child: TabBarView(
+            controller: _tabController,
+            children: [
+              ConversationTab(
+                _tabController,
+              ),
+              ContactTab(),
+            ],
+          )),
+          bottomNavigationBar: HomeBottomNavigation(
+            tabController: _tabController,
+          )),
     );
   }
 }

@@ -43,12 +43,11 @@ class _FindContactPageState extends State<FindContactPage> {
               height: 30,
             ),
             FutureBuilder<List<Contact>>(
-                future: ContactRepository().findContacts(_search),
+                future: ContactRepository().findContact(_search),
                 builder: (context, snapshot) {
                   print(snapshot.data);
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
-                      if (snapshot.data.isNotEmpty) {
                         return Expanded(
                           child: ListView.builder(
                               itemCount: snapshot.data.length,
@@ -58,11 +57,8 @@ class _FindContactPageState extends State<FindContactPage> {
                                 );
                               }),
                         );
-                      } else {
-                        return CantFind();
-                      }
                     } else {
-                      return Container();
+                      return CantFind();
                     }
                   } else if (snapshot.connectionState ==
                       ConnectionState.waiting) {

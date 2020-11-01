@@ -10,29 +10,23 @@ class Contact {
   Contact(this.uID, this.cID, this.name, this.email, this.avatar);
 
   factory Contact.fromMap(Map map) {
-    return Contact(map[Fields.userFieldUID], null, map[Fields.contactName],
+    return Contact(map[Fields.userUID], null, map[Fields.contactName],
         map[Fields.contactEmail], map[Fields.contactAvatar]);
   }
 
   factory Contact.fromUser(Map map) {
-    final _user = User.fromMap(map[Fields.userInfo]);
+    final _user = User.fromMap(map);
     return Contact(_user.uID, null, _user.name, _user.email, _user.avatar);
   }
 
   // ignore: missing_return
   factory Contact.fromQuerySnapShot(
-      QuerySnapshot snapshot, EventSink<List<Contact>> sink) {
-    final contacts = <Contact>[];
+      QuerySnapshot snapshot, EventSink<Map<String, String>> sink) {
+    final contacts = <String, String>{};
     snapshot.docs.forEach((element) {
       final _cID = element.data()[Fields.contactCID];
-      final _contact = element.data()[Fields.contactInfo];
-      print("here: $_contact");
-      contacts.add(Contact(
-          _contact[Fields.contactID],
-          _cID,
-          _contact[Fields.contactName],
-          _contact[Fields.contactEmail],
-          _contact[Fields.contactAvatar]));
+      final _uID = element.data()[Fields.contactID];
+      contacts.addAll({Fields.contactID: _uID, Fields.contactCID: _cID});
     });
     sink.add(contacts);
   }

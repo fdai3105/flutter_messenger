@@ -1,6 +1,8 @@
 import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb_auth;
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_bloc_chat/config/config.dart';
+import 'package:flutter_bloc_chat/providers/notification_provider.dart';
 import '../models/models.dart';
 import '../repositories/repositories.dart';
 import '../utils/utils.dart';

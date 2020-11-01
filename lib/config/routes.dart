@@ -16,6 +16,6 @@ class Routes {
     chat: (context) => const ChatPage(),
     findContact: (context) => FindContactPage(),
     chatInfo: (context) => ChatInfo(),
-    // setting: (context) => SettingPage(),
+    setting: (context) => SettingPage(),
   };
 }

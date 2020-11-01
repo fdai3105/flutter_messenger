@@ -7,12 +7,12 @@ class UI {
   static const paddingTop = EdgeInsets.only(top: 10);
 
   // texts
-  static final textColor = HexColor.fromHex("292941");
+  static final textColor = HexColor.fromHex("292941").withOpacity(0.8);
   static final textStyle = TextStyle(color: textColor, fontSize: 14);
 
   // appBar
   static final appBarBackground = HexColor.fromHex("F7F7F9");
-  static final appBarTextColor = HexColor.fromHex("292941");
+  static final appBarTextColor = textColor;
   static final appBarIconColor = appBarTextColor;
   static final appBarTextStyle = TextStyle(color: appBarTextColor);
 
