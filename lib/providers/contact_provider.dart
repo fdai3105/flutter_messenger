@@ -66,17 +66,30 @@ class ContactProvider implements Provider {
   }
 
   // get friends of current user
-  Stream<Map<String, String>> getContacts(String uID) {
+  Stream<List<Contact>> getContacts(String uID) {
     _streamController = StreamController()..sink;
     final ref = _fireStore
         .collection(Paths.usersPath)
         .doc(uID)
         .collection(Paths.contactsPath);
-    return ref.snapshots().transform(
-            StreamTransformer<QuerySnapshot, Map<String, String>>.fromHandlers(
-          handleData: (snapshot, sink) =>
-              Contact.fromQuerySnapShot(snapshot, sink),
+    return ref
+        .snapshots()
+        .transform(StreamTransformer<QuerySnapshot, List<Contact>>.fromHandlers(
+          handleData: _mapDocToContact,
         ));
+  }
+
+  Future<void> _mapDocToContact(
+      QuerySnapshot snapshot, EventSink<List<Contact>> sink) async {
+    final _contacts = <Contact>[];
+    for(final i in snapshot.docs) {
+      final _cID = i.data()[Fields.contactCID];
+      final _uID = i.data()[Fields.contactID];
+      final _user = await UserRepository().getUserByUID(_uID);
+      _contacts.add(Contact(_user.uID, _cID, _user.name, _user.email,
+          _user.avatar, _user.isOnline));
+    }
+    sink.add(_contacts);
   }
 
   Future<void> removeContact(String email) async {

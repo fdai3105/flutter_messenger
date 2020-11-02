@@ -27,18 +27,6 @@ class Contact {
         _user.uID, null, _user.name, _user.email, _user.avatar, _user.isOnline);
   }
 
-  // ignore: missing_return
-  factory Contact.fromQuerySnapShot(
-      QuerySnapshot snapshot, EventSink<Map<String, String>> sink) {
-    final contacts = <String, String>{};
-    snapshot.docs.forEach((element) {
-      final _cID = element.data()[Fields.contactCID];
-      final _uID = element.data()[Fields.contactID];
-      contacts.addAll({Fields.contactID: _uID, Fields.contactCID: _cID});
-    });
-    sink.add(contacts);
-  }
-
   @override
   String toString() {
     return 'Contact{uID: $uID, cID: $cID, name: $name, email: $email, avatar: $avatar, isOnline: $isOnline}';
