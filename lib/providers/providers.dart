@@ -16,7 +16,7 @@ part "auth_provider.dart";
 
 part 'contact_provider.dart';
 
-part 'conversation_provider.dart';
+part 'room_provider.dart';
 
 part 'message_provider.dart';
 

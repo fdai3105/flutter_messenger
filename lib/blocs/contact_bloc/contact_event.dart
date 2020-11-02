@@ -7,6 +7,11 @@ abstract class ContactEvent extends Equatable {
 class FetchContactEvent extends ContactEvent {
   @override
   List<Object> get props => [];
+
+  @override
+  String toString() {
+    return 'FetchContactEvent{}';
+  }
 }
 
 class ReceiveContactEvent extends ContactEvent {

@@ -3,7 +3,7 @@ part of "providers.dart";
 class ContactProvider implements Provider {
   final FirebaseFirestore _fireStore;
 
-  StreamController<List<Contact>> _streamController;
+  final _streamController = StreamController<List<Contact>>()..sink;
 
   ContactProvider({FirebaseFirestore firestore})
       : _fireStore = firestore ?? FirebaseFirestore.instance;
@@ -67,7 +67,6 @@ class ContactProvider implements Provider {
 
   // get friends of current user
   Stream<List<Contact>> getContacts(String uID) {
-    _streamController = StreamController()..sink;
     final ref = _fireStore
         .collection(Paths.usersPath)
         .doc(uID)
@@ -82,7 +81,7 @@ class ContactProvider implements Provider {
   Future<void> _mapDocToContact(
       QuerySnapshot snapshot, EventSink<List<Contact>> sink) async {
     final _contacts = <Contact>[];
-    for(final i in snapshot.docs) {
+    for (final i in snapshot.docs) {
       final _cID = i.data()[Fields.contactCID];
       final _uID = i.data()[Fields.contactID];
       final _user = await UserRepository().getUserByUID(_uID);

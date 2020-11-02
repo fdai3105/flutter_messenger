@@ -17,7 +17,7 @@ void main() async {
 
   final _sharePrefs = SharedPres();
   final _authRepository = AuthRepository();
-  final _conversationRepository = ConversationRepository();
+  final _conversationRepository = RoomRepository();
   final _contactRepository = ContactRepository();
   final _messageRepository = MessageRepository();
   final _userRepository = UserRepository();
@@ -28,9 +28,9 @@ void main() async {
         return AuthBloc(_authRepository, _userRepository, _sharePrefs)
           ..add(AppLaunchAuthEvent());
       }),
-      BlocProvider<ConversationBloc>(create: (context) {
-        return ConversationBloc(_conversationRepository)
-          ..add(FetchConversationEvent());
+      BlocProvider<RoomBloc>(create: (context) {
+        return RoomBloc(_conversationRepository)
+          ..add(FetchRoomEvent());
       }),
       BlocProvider<ContactBloc>(create: (context) {
         return ContactBloc(_contactRepository)..add(FetchContactEvent());

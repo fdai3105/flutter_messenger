@@ -7,7 +7,7 @@ part "auth_repository.dart";
 
 part 'contact_repository.dart';
 
-part 'conversation_repository.dart';
+part 'room_repository.dart';
 
 part 'message_repository.dart';
 

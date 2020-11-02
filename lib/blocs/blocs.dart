@@ -18,11 +18,11 @@ part 'contact_bloc/contact_event.dart';
 
 part 'contact_bloc/contact_state.dart';
 
-part 'conversation_bloc/conversation_bloc.dart';
+part 'room_bloc/room_bloc.dart';
 
-part 'conversation_bloc/conversation_event.dart';
+part 'room_bloc/room_event.dart';
 
-part 'conversation_bloc/conversation_state.dart';
+part 'room_bloc/room_state.dart';
 
 part 'message_bloc/message_bloc.dart';
 

@@ -1,10 +1,10 @@
 part of '../blocs.dart';
 
-abstract class ConversationEvent extends Equatable {
-  const ConversationEvent();
+abstract class RoomEvent extends Equatable {
+  const RoomEvent();
 }
 
-class FetchConversationEvent extends ConversationEvent {
+class FetchRoomEvent extends RoomEvent {
   @override
   List<Object> get props => [];
 
@@ -14,10 +14,10 @@ class FetchConversationEvent extends ConversationEvent {
   }
 }
 
-class ReceiveConversationEvent extends ConversationEvent {
-  final List<Conversation> conversations;
+class ReceiveRoomEvent extends RoomEvent {
+  final List<Room> conversations;
 
-  const ReceiveConversationEvent(this.conversations);
+  const ReceiveRoomEvent(this.conversations);
 
   @override
   List<Object> get props => [conversations];

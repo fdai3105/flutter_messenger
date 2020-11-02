@@ -45,7 +45,6 @@ class _FindContactPageState extends State<FindContactPage> {
             FutureBuilder<List<Contact>>(
                 future: ContactRepository().findContact(_search),
                 builder: (context, snapshot) {
-                  print(snapshot.data);
                   if (snapshot.connectionState == ConnectionState.done) {
                     if (snapshot.hasData) {
                         return Expanded(

@@ -10,9 +10,9 @@ class ConversationTab extends StatelessWidget {
     return Container(
       padding: UI.paddingTop,
       color: UI.bodyBackground,
-      child: BlocBuilder<ConversationBloc, ConversationState>(
-          builder: (context, state) {
-        if (state is ConversationSuccess) {
+      child:
+          BlocBuilder<RoomBloc, ConversationState>(builder: (context, state) {
+        if (state is RoomSuccess) {
           if (state.list.isNotEmpty) {
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
@@ -56,7 +56,13 @@ class ConversationTab extends StatelessWidget {
             ),
           );
         } else {
-          return Container();
+          return Container(
+            height: 50,
+            width: 50,
+            child: const Center(
+              child: CircularProgressIndicator(),
+            ),
+          );
         }
       }),
     );

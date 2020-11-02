@@ -8,7 +8,7 @@ import '../utils/utils.dart';
 
 part 'contact.dart';
 
-part 'conversation.dart';
+part 'room.dart';
 
 part 'message.dart';
 

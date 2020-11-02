@@ -14,5 +14,6 @@ class ContactRepository implements Repository {
   Future<List<Contact>> findContact(String email) =>
       _contactProvider.findContact(email);
 
+  @override
   void dispose() => _contactProvider.dispose();
 }

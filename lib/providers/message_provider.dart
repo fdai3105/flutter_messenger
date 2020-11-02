@@ -3,14 +3,13 @@ part of "providers.dart";
 class MessageProvider extends Provider {
   final FirebaseFirestore fireStore;
 
-  StreamController<List<Message>> _streamController;
+  var _streamController = StreamController<List<Message>>();
 
   MessageProvider({FirebaseFirestore fireStore})
       : fireStore = fireStore ?? FirebaseFirestore.instance;
 
   Stream<List<Message>> getMessages(String chatID) {
-    _streamController = StreamController();
-    _streamController.sink;
+    _streamController = StreamController()..sink;
     final doc = fireStore.collection(Paths.chatsPath).doc(chatID);
     final messages = doc
         .collection(Paths.messagesPath)
@@ -38,12 +37,8 @@ class MessageProvider extends Provider {
                 sendName: message.senderName,
                 time: message.timeStamp)
             .toMap(),
-        Fields.roomMember: [message.senderEmail, sendTo],
       });
     } else {
-      final members1 =
-          await UserRepository().getUserByEmail(message.senderEmail);
-      final members2 = await UserRepository().getUserByEmail(sendTo);
       await chatDocRef.set({
         Fields.roomLastMessage: LastMessage(
                 text: message.text,
@@ -51,7 +46,6 @@ class MessageProvider extends Provider {
                 time: message.timeStamp)
             .toMap(),
         Fields.roomMember: [message.senderEmail, sendTo],
-        Fields.roomMemberInfo: {"0": members1.toMap(), "1": members2.toMap()}
       });
     }
   }

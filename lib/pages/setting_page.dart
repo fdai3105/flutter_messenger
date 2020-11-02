@@ -119,6 +119,9 @@ class SettingPage extends StatelessWidget {
                       fontSize: 14,
                     ),),
                     onTap: (){
+                      // RoomRepository().dispose();
+                      // ContactRepository().dispose();
+                      // MessageRepository().dispose();
                       context.bloc<AuthBloc>().add(LogoutAuthEvent());
                       context.bloc<SettingBloc>().add(RestartAppEvent());
                     },

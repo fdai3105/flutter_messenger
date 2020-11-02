@@ -8,22 +8,22 @@ class UserProvider {
 
   Future<void> saveUserToFirestore(fb_auth.User user) async {
     final ref = _fireStore.collection(Paths.usersPath).doc(user.uid);
-    final ref2 = _fireStore.collection(Paths.fcmTokenPath);
     final isExists = await ref.get();
     if (!isExists.exists) {
-      final fcmToken = await FirebaseMessaging().getToken();
-      await ref2.add({
-        Fields.fcmUID: user.uid,
-        Fields.fcmToken: fcmToken,
-      });
       await ref.set(User.fromAuth(user).toMap());
     }
   }
 
   Future<void> setUserOnlineStatus({bool isOnline}) async {
-    final _doc =
-        _fireStore.collection(Paths.usersPath).doc(SharedPres.getUser().uID);
-    await _doc.update({Fields.userIsOnline: isOnline});
+    final _uid = SharedPres.getUser().uID;
+    if (_uid != null) {
+      try {
+        final _doc = _fireStore.collection(Paths.usersPath).doc(_uid);
+        await _doc.update({Fields.userIsOnline: isOnline});
+      } on FirebaseException catch (e) {
+        print(e.toString());
+      }
+    }
   }
 
   Future<User> getUserByEmail(String email) async {
@@ -44,7 +44,7 @@ class UserProvider {
 
   Future<User> getUserByUID(String uID) async {
     final ref = await _fireStore.collection(Paths.usersPath).doc(uID).get();
-    if (ref.data().isNotEmpty) {
+    if (ref.data() != null) {
       return User.fromMap(ref.data());
     } else {
       return null;
