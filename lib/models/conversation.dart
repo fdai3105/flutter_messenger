@@ -2,7 +2,7 @@ part of 'models.dart';
 
 class Conversation {
   final String chatId;
-  final Message latestMessage;
+  final LastMessage latestMessage;
   final String user;
   final List<Contact> members;
 
@@ -12,9 +12,9 @@ class Conversation {
     final data = doc.data();
     final _members = <Contact>[];
     final members = <Contact>[];
-
     final selfEmail = SharedPres.getUser().email;
-    final Map memberMap = data[Fields.chatMemberInfo];
+    final Map memberMap = data[Fields.roomMemberInfo];
+
     memberMap.forEach((key, value) {
       members.add(Contact.fromMap(value));
     });
@@ -26,7 +26,7 @@ class Conversation {
     return Conversation(
         chatId: doc.id,
         latestMessage:
-            Message.fromMap(Map.from(data[Fields.chatsLastMessage])),
+            LastMessage.fromMap(Map.from(data[Fields.roomLastMessage])),
         user: selfEmail,
         members: _members);
   }

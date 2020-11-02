@@ -44,30 +44,36 @@ class _ChatListState extends State<ChatList> {
                         child: ChatItem(message: state.messages[index]));
                   });
             } else {
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Image.asset("${Paths.assetIllustrations}/mail_love.png"),
-                  Text(
-                    "Let's start conversation",
-                    style: UI.textStyle
-                        .copyWith(fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  FlatButton(
-                      onPressed: () {
-                        context.bloc<MessagesBloc>().add(
-                            SendMessageEvent(widget.cID, "Hi!", widget.sendTo));
-                      },
-                      child: Text(
-                        "Send hi!",
-                        style: UI.textStyle.copyWith(
-                            color: UI.primaryColor,
-                            fontWeight: FontWeight.bold),
-                      )),
-                ],
+              return SingleChildScrollView(
+                physics: const BouncingScrollPhysics(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Image.asset(
+                      "${Paths.assetIllustrations}/mail_love.png",
+                      height: 200,
+                    ),
+                    Text(
+                      "Let's begin conversation",
+                      style: UI.textStyle
+                          .copyWith(fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 5,
+                    ),
+                    FlatButton(
+                        onPressed: () {
+                          context.bloc<MessagesBloc>().add(SendMessageEvent(
+                              widget.cID, "Hi!", widget.sendTo));
+                        },
+                        child: Text(
+                          "Send hi!",
+                          style: UI.textStyle.copyWith(
+                              color: UI.primaryColor,
+                              fontWeight: FontWeight.bold),
+                        )),
+                  ],
+                ),
               );
             }
           } else if (state is MessagesProgress) {

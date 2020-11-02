@@ -1,10 +1,4 @@
-import 'dart:async';
-
-import 'package:bloc/bloc.dart';
-import 'package:equatable/equatable.dart';
-
-part 'setting_event.dart';
-part 'setting_state.dart';
+part of '../blocs.dart';
 
 class SettingBloc extends Bloc<SettingEvent, SettingState> {
   SettingBloc() : super(SettingInitial());
@@ -13,6 +7,10 @@ class SettingBloc extends Bloc<SettingEvent, SettingState> {
   Stream<SettingState> mapEventToState(
     SettingEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is SettingChangeEvent) {
+    } else if (event is RestartAppEvent) {
+      yield RestartAppState();
+    }
   }
 }
+

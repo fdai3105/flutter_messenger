@@ -29,13 +29,13 @@ class ConversationItem extends StatelessWidget {
             subtitle: RichText(
               text: TextSpan(style: UI.textStyle, children: [
                 TextSpan(
-                    text: _conversation.latestMessage.isSelf
+                    text: _conversation.latestMessage.sendName == SharedPres.getUser().name
                         ? "You: ${_conversation.latestMessage.text}"
                         : _conversation.latestMessage.text),
                 const TextSpan(text: " - "),
                 TextSpan(
                     text: CustomDateTime.customDateTime(
-                        _conversation.latestMessage.timeStamp)),
+                        _conversation.latestMessage.time)),
               ]),
             )),
       ),

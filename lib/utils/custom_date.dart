@@ -18,7 +18,7 @@ class CustomDateTime {
         sameMonthYear(_dateTime.month, _dateTime.year)) {
       return "2 day ago $_time";
     } else if (_differenceDay <= DateTime.daysPerWeek) {
-      return "$_differenceDay ngày trước $_time";
+      return "$_differenceDay days ago $_time";
     } else {
       return "$_dateTime";
     }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_chat/utils/utils.dart';
+import '../utils/utils.dart';
 import '../blocs/blocs.dart';
 import '../config/config.dart';
 import '../repositories/repositories.dart';

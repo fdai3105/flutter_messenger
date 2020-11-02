@@ -6,9 +6,8 @@ class Paths {
 
   // firebase paths
   static const String usersPath = '/users';
-  static const String fcmToken = "/fcmToken";
+  static const String fcmTokenPath = "/fcmToken";
   static const String contactsPath = '/contacts';
-  static const String chatsPath = '/chats';
-  static const String chatMessages = '/chat_messages';
+  static const String chatsPath = '/rooms';
   static const String messagesPath = 'messages';
 }

@@ -5,6 +5,7 @@ class Message {
   int timeStamp;
   String senderName;
   String senderEmail;
+  String senderAvatar;
   String sendTo;
   bool isSelf;
   String chatsID;
@@ -14,6 +15,7 @@ class Message {
       this.timeStamp,
       this.senderName,
       this.senderEmail,
+      this.senderAvatar,
       this.sendTo,
       this.isSelf,
       this.chatsID});
@@ -25,12 +27,22 @@ class Message {
 
   factory Message.fromMap(Map data) {
     return Message(
-        chatsID: data[Fields.chatChatsID],
-        text: data[Fields.chatText],
-        timeStamp: data[Fields.chatTime],
-        senderName: data[Fields.chatSenderName],
-        senderEmail: data[Fields.chatEmail],
-        isSelf: data[Fields.chatEmail] == SharedPres.getUser().email);
+        text: data[Fields.romText],
+        timeStamp: data[Fields.romTime],
+        senderName: data[Fields.roomSenderName],
+        senderEmail: data[Fields.roomEmail],
+        senderAvatar: data[Fields.messageAvatar],
+        isSelf: data[Fields.roomEmail] == SharedPres.getUser().email);
+  }
+
+  Map<String, dynamic> toMap() {
+    final map = <String, dynamic>{};
+    map[Fields.romText] = text;
+    map[Fields.romTime] = timeStamp;
+    map[Fields.roomSenderName] = senderName;
+    map[Fields.messageAvatar] = SharedPres.getUser().avatar;
+    map[Fields.roomEmail] = senderEmail;
+    return map;
   }
 
   // ignore: missing_return
@@ -41,17 +53,6 @@ class Message {
       messages.add(Message.fromFirestore(element));
     });
     sink.add(messages);
-  }
-
-  Map<String, dynamic> toMap() {
-    final map = <String, dynamic>{};
-    map[Fields.chatChatsID] = chatsID;
-    map[Fields.chatText] = text;
-    map[Fields.chatTime] = timeStamp;
-    map[Fields.chatSenderName] = senderName;
-    map[Fields.chatEmail] = senderEmail;
-    map[Fields.chatSendTo] = sendTo;
-    return map;
   }
 
   @override

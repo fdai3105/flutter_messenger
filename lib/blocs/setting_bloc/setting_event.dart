@@ -1,4 +1,4 @@
-part of 'setting_bloc.dart';
+part of '../blocs.dart';
 
 abstract class SettingEvent extends Equatable {
   const SettingEvent();
@@ -6,7 +6,7 @@ abstract class SettingEvent extends Equatable {
 
 class SettingChangeEvent extends SettingEvent {
   @override
-  List<Object> get props => throw UnimplementedError();
+  List<Object> get props => [];
 }
 
 class RestartAppEvent extends SettingEvent {

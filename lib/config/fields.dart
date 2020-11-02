@@ -1,15 +1,15 @@
 part of 'config.dart';
 
 class Fields {
-  static const String chatsLastMessage = "lastMessage"; // primary
-  static const String chatChatsID = "chatsID";
-  static const String chatText = "text";
-  static const String chatTime = "time";
-  static const String chatSenderName = "senderName";
-  static const String chatEmail = "senderEmail";
-  static const String chatSendTo = "sendTo";
-  static const String chatMember = "members";
-  static const String chatMemberInfo = "membersInfo";
+  static const String roomLastMessage = "lastMessage"; // primary
+  static const String romText = "text";
+  static const String romTime = "time";
+  static const String roomSenderName = "senderName";
+  static const String roomEmail = "senderEmail";
+  static const String roomMember = "members";
+  static const String roomMemberInfo = "membersInfo";
+
+  static const String messageAvatar = "avatar";
 
   static const String userUID = "uID";
   static const String userName = "name";

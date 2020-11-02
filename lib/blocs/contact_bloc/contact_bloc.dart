@@ -34,7 +34,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
           add(ReceiveContactEvent(_contacts));
         }
       });
-      add(ReceiveContactEvent(_contacts));
+      add(ReceiveContactEvent(null));
     });
   }
 

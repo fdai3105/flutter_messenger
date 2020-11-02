@@ -8,9 +8,9 @@ class UserProvider {
 
   Future<void> saveUserToFirestore(fb_auth.User user) async {
     final ref = _fireStore.collection(Paths.usersPath).doc(user.uid);
-    final ref2 = _fireStore.collection(Paths.fcmToken);
-    final userExist = await ref.snapshots().isEmpty;
-    if (userExist) {
+    final ref2 = _fireStore.collection(Paths.fcmTokenPath);
+    final isExists = await ref.get();
+    if (!isExists.exists) {
       final fcmToken = await FirebaseMessaging().getToken();
       await ref2.add({
         Fields.fcmUID: user.uid,
@@ -49,7 +49,7 @@ class UserProvider {
     final _members = <User>[];
     final _doc = await _fireStore.collection(Paths.chatsPath).doc(chatID).get();
     final _emailMembers =
-        List<String>.from(_doc.data()[Fields.chatMember]);
+        List<String>.from(_doc.data()[Fields.roomMember]);
     for (var i = 0; i < _emailMembers.length; i++) {
       final member = await getUserByEmail(_emailMembers[i]);
       _members.add(member);

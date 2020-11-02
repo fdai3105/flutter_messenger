@@ -1,4 +1,5 @@
 part of 'widgets.dart';
+
 class ChatInputField extends StatelessWidget {
   final String cID;
   final String sendTo;
@@ -9,55 +10,39 @@ class ChatInputField extends StatelessWidget {
       : super(key: key);
 
   void sendMessage(BuildContext context, String text) {
-    final message = Message(
-        text: text,
-        timeStamp: DateTime
-            .now()
-            .millisecondsSinceEpoch,
-        senderName: SharedPres
-            .getUser()
-            .name,
-        senderEmail: SharedPres
-            .getUser()
-            .email);
-    context
-        .bloc<MessagesBloc>()
-        .add(SendMessageEvent(cID, text, sendTo));
+    context.bloc<MessagesBloc>().add(SendMessageEvent(cID, text, sendTo));
     _editingController.clear();
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.black12,
-      child: Row(
-        children: [
-          IconButton(
-              icon: Icon(
-                Icons.insert_emoticon,
-                color: Colors.black.withOpacity(0.8),
+      margin: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20),
+        decoration: BoxDecoration(
+            color: Colors.black12, borderRadius: BorderRadius.circular(20)),
+        child: Row(
+          children: [
+            Expanded(
+              child: TextField(
+                controller: _editingController,
+                decoration: UI.textDecoration.copyWith(
+                    hintText: "Type a message",
+                    hintStyle: const TextStyle(fontSize: 16)),
               ),
-              onPressed: () {}),
-          Expanded(
-            child: TextField(
-              controller: _editingController,
-              decoration: InputDecoration(
-                  fillColor: Colors.black,
-                  hintText: "Type a message",
-                  suffixIcon: IconButton(
-                    icon: const Icon(Icons.send),
-                    color: Colors.black.withOpacity(0.8),
-                    onPressed: () {
-                      final _text = _editingController.text;
-                      if (_text.isNotEmpty) {
-                        sendMessage(context, _text);
-                      }
-                    },
-                  ),
-                  focusedBorder: InputBorder.none),
             ),
-          ),
-        ],
+            IconButton(
+              onPressed: () {
+                final _text = _editingController.text;
+                if (_text.isNotEmpty) {
+                  sendMessage(context, _text);
+                }
+              },
+              icon: const Icon(Icons.send),
+            ),
+          ],
+        ),
       ),
     );
   }

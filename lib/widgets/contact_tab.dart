@@ -7,8 +7,9 @@ class ContactTab extends StatelessWidget {
       padding: UI.paddingTop,
       color: UI.bodyBackground,
       child: BlocBuilder<ContactBloc, ContactState>(builder: (context, state) {
+        print(state);
         if (state is ContactSuccess) {
-          if (state.contacts.isNotEmpty) {
+          if (state.contacts != null) {
             return ListView.builder(
                 physics: const BouncingScrollPhysics(),
                 itemCount: state.contacts.length,

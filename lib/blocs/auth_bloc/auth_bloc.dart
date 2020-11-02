@@ -1,16 +1,20 @@
-part of  '../blocs.dart';
+part of '../blocs.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final AuthRepository _authRepository;
   final UserRepository _userRepository;
   final SharedPres _sharedPres;
 
-  AuthBloc(this._authRepository,
-      this._userRepository,
-      this._sharedPres,) : super(AuthInitial());
+  AuthBloc(
+    this._authRepository,
+    this._userRepository,
+    this._sharedPres,
+  ) : super(AuthInitial());
 
   @override
-  Stream<AuthState> mapEventToState(AuthEvent event,) async* {
+  Stream<AuthState> mapEventToState(
+    AuthEvent event,
+  ) async* {
     if (event is AppLaunchAuthEvent) {
       yield* _mapAppLaunchAuthEventToState();
     } else if (event is GoogleLoginAuthEvent) {

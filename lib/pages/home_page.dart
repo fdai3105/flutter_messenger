@@ -73,20 +73,21 @@ class _HomePageState extends State<HomePage>
     return DefaultTabController(
       length: 3,
       child: Scaffold(
-          appBar: _appBar()[currentPage],
-          body: SafeArea(
-              child: TabBarView(
-            controller: _tabController,
-            children: [
-              ConversationTab(
-                _tabController,
-              ),
-              ContactTab(),
-            ],
-          )),
-          bottomNavigationBar: HomeBottomNavigation(
-            tabController: _tabController,
-          )),
+        appBar: _appBar()[currentPage],
+        body: SafeArea(
+            child: TabBarView(
+          controller: _tabController,
+          children: [
+            ConversationTab(
+              _tabController,
+            ),
+            ContactTab(),
+          ],
+        )),
+        bottomNavigationBar: HomeBottomNavigation(
+          tabController: _tabController,
+        ),
+      ),
     );
   }
 }

@@ -104,7 +104,7 @@ class SettingPage extends StatelessWidget {
                       Icons.notifications,
                       size: 30,
                     ),
-                    title: Text("Data",style: TextStyle(
+                    title: Text("Demo",style: TextStyle(
                       color: UI.textColor,
                       fontSize: 14,
                     ),),
@@ -114,12 +114,13 @@ class SettingPage extends StatelessWidget {
                       Icons.exit_to_app,
                       size: 30,
                     ),
-                    title: Text("Data",style: TextStyle(
+                    title: Text("Logout",style: TextStyle(
                       color: UI.textColor,
                       fontSize: 14,
                     ),),
                     onTap: (){
                       context.bloc<AuthBloc>().add(LogoutAuthEvent());
+                      context.bloc<SettingBloc>().add(RestartAppEvent());
                     },
                   ),
                 ],

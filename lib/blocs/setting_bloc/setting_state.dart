@@ -1,4 +1,4 @@
-part of 'setting_bloc.dart';
+part of '../blocs.dart';
 
 abstract class SettingState extends Equatable {
   const SettingState();
