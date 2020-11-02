@@ -33,6 +33,7 @@ class AuthProvider extends Provider {
   Future<void> signOut() async {
     await _firebaseAuth.signOut();
     await _googleSignIn.signOut();
+    await UserRepository().setUserOnlineStatus(isOnline: false);
   }
 
   @override

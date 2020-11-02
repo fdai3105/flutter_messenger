@@ -20,6 +20,12 @@ class UserProvider {
     }
   }
 
+  Future<void> setUserOnlineStatus({bool isOnline}) async {
+    final _doc =
+        _fireStore.collection(Paths.usersPath).doc(SharedPres.getUser().uID);
+    await _doc.update({Fields.userIsOnline: isOnline});
+  }
+
   Future<User> getUserByEmail(String email) async {
     var user;
     final doc = await _fireStore
@@ -48,8 +54,7 @@ class UserProvider {
   Future<List<User>> getMembersByChatID(String chatID) async {
     final _members = <User>[];
     final _doc = await _fireStore.collection(Paths.chatsPath).doc(chatID).get();
-    final _emailMembers =
-        List<String>.from(_doc.data()[Fields.roomMember]);
+    final _emailMembers = List<String>.from(_doc.data()[Fields.roomMember]);
     for (var i = 0; i < _emailMembers.length; i++) {
       final member = await getUserByEmail(_emailMembers[i]);
       _members.add(member);

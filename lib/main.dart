@@ -51,41 +51,13 @@ class MainApp extends StatefulWidget {
 }
 
 // ignore: prefer_mixin
-class _MainAppState extends State<MainApp> with WidgetsBindingObserver {
+class _MainAppState extends State<MainApp>{
   Key restartKey = UniqueKey(); //todo: cant rebuild widget when logout ???
 
   @override
   void initState() {
     super.initState();
     restartKey = UniqueKey();
-    WidgetsBinding.instance.addObserver(this);
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    print("out");
-  }
-
-  @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
-    super.didChangeAppLifecycleState(state);
-    switch (state) {
-      case AppLifecycleState.inactive:
-        print("Inactive");
-        // offline
-        break;
-      case AppLifecycleState.paused:
-        print("Paused");
-        break;
-      case AppLifecycleState.resumed:
-        print("Resumed");
-        // online
-        break;
-      case AppLifecycleState.detached:
-        print("Suspending");
-        break;
-    }
   }
 
   @override

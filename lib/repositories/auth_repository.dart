@@ -4,9 +4,7 @@ class AuthRepository implements IAuthRepository {
   AuthProvider authProvider = AuthProvider();
 
   @override
-  Future<User> login() {
-    throw UnimplementedError();
-  }
+  Future<User> login() {}
 
   @override
   Future<firebase_auth.User> loginWithGoogle() =>

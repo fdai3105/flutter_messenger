@@ -32,7 +32,22 @@ class ContactTab extends StatelessWidget {
                           child: Image.network(state.contacts[index].avatar),
                         ),
                         title: Text(state.contacts[index].name),
-                        subtitle: Text(state.contacts[index].email),
+                        subtitle: Row(
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 10,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                color: state.contacts[index].isOnline
+                                    ? Colors.green
+                                    : Colors.grey,
+                              ),
+                            ),
+                            const SizedBox(width: 5,),
+                            Text(state.contacts[index].email)
+                          ],
+                        ),
                       ),
                     ),
                   );
@@ -71,7 +86,9 @@ class ContactTab extends StatelessWidget {
         } else {
           return Center(
             child: Container(
-                height: 50, width: 50, child: const CircularProgressIndicator()),
+                height: 50,
+                width: 50,
+                child: const CircularProgressIndicator()),
           );
         }
       }),

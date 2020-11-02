@@ -20,7 +20,7 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
   Stream<ContactState> _mapFetchContactEventToState() async* {
     _contactRepository.getContacts(SharedPres.getUser().uID).listen((event) {
       final _contacts = <Contact>[];
-      var _user;
+      User _user;
       var _cID;
       event.forEach((key, value) async {
         if (key == Fields.contactID) {
@@ -29,8 +29,8 @@ class ContactBloc extends Bloc<ContactEvent, ContactState> {
           _cID = value;
         }
         if (_user != null) {
-          _contacts.add(
-              Contact(_user.uID, _cID, _user.name, _user.email, _user.avatar));
+          _contacts.add(Contact(_user.uID, _cID, _user.name, _user.email,
+              _user.avatar, _user.isOnline));
           add(ReceiveContactEvent(_contacts));
         }
       });

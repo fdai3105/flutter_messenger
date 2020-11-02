@@ -17,9 +17,9 @@ part 'find_contact_input.dart';
 
 part 'cant_find.dart';
 
-part 'conversation_item.dart';
+part 'room_item.dart';
 
-part 'conversation_tab.dart';
+part 'room_tab.dart';
 
 part 'contact_tab.dart';
 

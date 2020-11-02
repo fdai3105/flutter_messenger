@@ -20,4 +20,8 @@ class UserRepository implements UserProvider {
 
   @override
   Future<User> getUserByUID(String uID) => _userProvider.getUserByUID(uID);
+
+  @override
+  Future<void> setUserOnlineStatus({bool isOnline}) =>
+      _userProvider.setUserOnlineStatus(isOnline: isOnline);
 }

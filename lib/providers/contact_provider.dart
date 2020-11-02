@@ -65,7 +65,7 @@ class ContactProvider implements Provider {
     return _contactsUID;
   }
 
-  // get and display in UI
+  // get friends of current user
   Stream<Map<String, String>> getContacts(String uID) {
     _streamController = StreamController()..sink;
     final ref = _fireStore

@@ -16,6 +16,7 @@ class Fields {
   static const String userEmail = "email";
   static const String userAvatar = "avatar";
   static const String userFCMToken = "fcmToken";
+  static const String userIsOnline= "isOnline";
 
   static const String userFCM = "userFCM";
   static const String fcmUID = "uID";

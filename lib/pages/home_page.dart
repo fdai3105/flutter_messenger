@@ -6,7 +6,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage>
-    with SingleTickerProviderStateMixin {
+    with SingleTickerProviderStateMixin, WidgetsBindingObserver {
   TabController _tabController;
   int currentPage = 0;
 
@@ -59,13 +59,37 @@ class _HomePageState extends State<HomePage>
 
   @override
   void initState() {
+    WidgetsBinding.instance.addObserver(this);
     _tabController = TabController(length: 2, vsync: this);
+    UserRepository().setUserOnlineStatus(isOnline: true);
     _tabController.addListener(() {
       setState(() {
         currentPage = _tabController.index;
       });
     });
     super.initState();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    final userRep = UserRepository();
+    switch (state) {
+      case AppLifecycleState.inactive:
+      // offline
+        userRep.setUserOnlineStatus(isOnline: false);
+        break;
+      case AppLifecycleState.paused:
+        print("App Paused");
+        break;
+      case AppLifecycleState.resumed:
+      // online
+        userRep.setUserOnlineStatus(isOnline: true);
+        break;
+      case AppLifecycleState.detached:
+        print("App Suspending");
+        break;
+    }
   }
 
   @override
